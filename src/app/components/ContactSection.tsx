@@ -374,10 +374,9 @@ export function ContactSection() {
             <LinkCard
               icon={HiOutlineDownload}
               label="Resume"
-              subtext="Download my CV"
+              subtext="Preview my CV"
               href="/rachel-rafik-resume.pdf"
               delay={0.35}
-              download
             />
 
             {/* Decorative quote */}
