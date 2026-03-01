@@ -13,7 +13,7 @@ function AnimatedContactTitle() {
   return (
     <div
       ref={titleRef}
-      className="flex flex-col items-center mb-20 md:mb-28 relative z-10"
+      className="flex flex-col items-center mb-14 md:mb-20 relative z-10"
     >
       <motion.div
         animate={
@@ -29,7 +29,7 @@ function AnimatedContactTitle() {
         className="w-32 h-px bg-[#c5b57a] mb-6 origin-center"
       />
 
-      <h2 className="font-['Limelight',sans-serif] text-[#494d17] text-center leading-none flex overflow-hidden" style={{ fontSize: "clamp(48px, 7vw, 102px)" }}>
+      <h2 className="font-['Limelight',sans-serif] text-[#494d17] text-center leading-none flex overflow-hidden" style={{ fontSize: "clamp(42px, 5.8vw, 84px)" }}>
         {letters.map((letter, i) => (
           <motion.span
             key={i}
@@ -74,7 +74,7 @@ function AnimatedContactTitle() {
         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
         transition={{ duration: 0.8, delay: isInView ? 0.9 : 0 }}
         className="font-['Gowun_Dodum',sans-serif] text-[#8a8a7a] mt-6 text-center max-w-lg tracking-wide"
-        style={{ fontSize: "clamp(16px, 1.6vw, 24px)" }}
+        style={{ fontSize: "clamp(15px, 1.15vw, 18px)" }}
       >
         Let's create something extraordinary together.
       </motion.p>
@@ -112,7 +112,7 @@ function FormField({
       }}
       className="relative"
     >
-      <label className="font-['Cormorant_SC',serif] text-[#494d17] tracking-[0.3em] uppercase block mb-2" style={{ fontSize: "clamp(15px, 1.3vw, 19px)" }}>
+      <label className="font-['Cormorant_SC',serif] text-[#494d17] tracking-[0.3em] uppercase block mb-2" style={{ fontSize: "clamp(13px, 1vw, 16px)" }}>
         {label}
       </label>
       <div className="relative">
@@ -124,7 +124,7 @@ function FormField({
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
             className="w-full bg-transparent border-b border-[#c5b57a]/30 focus:border-[#c5b57a] text-[#2a2a2a] font-['Gowun_Dodum',sans-serif] py-3 px-1 outline-none transition-colors duration-500 resize-none placeholder:text-[#b5b5a5]"
-            style={{ fontSize: "clamp(17px, 1.6vw, 24px)" }}
+            style={{ fontSize: "clamp(16px, 1.2vw, 18px)" }}
           />
         ) : (
           <input
@@ -134,7 +134,7 @@ function FormField({
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
             className="w-full bg-transparent border-b border-[#c5b57a]/30 focus:border-[#c5b57a] text-[#2a2a2a] font-['Gowun_Dodum',sans-serif] py-3 px-1 outline-none transition-colors duration-500 placeholder:text-[#b5b5a5]"
-            style={{ fontSize: "clamp(17px, 1.6vw, 24px)" }}
+            style={{ fontSize: "clamp(16px, 1.2vw, 18px)" }}
           />
         )}
         {/* Animated underline */}
@@ -181,7 +181,7 @@ function LinkCard({
         target="_blank"
         rel="noopener noreferrer"
         download={download ? true : undefined}
-        className="group relative flex items-center gap-5 p-7 md:p-8 border border-[#c5b57a]/20 bg-white/40 backdrop-blur-sm hover:border-[#c5b57a]/50 hover:bg-white/70 transition-all duration-500 overflow-hidden"
+        className="group relative flex items-center gap-4 p-5 md:p-6 border border-[#c5b57a]/20 bg-white/40 backdrop-blur-sm hover:border-[#c5b57a]/50 hover:bg-white/70 transition-all duration-500 overflow-hidden"
       >
         {/* Hover fill */}
         <motion.div
@@ -191,20 +191,20 @@ function LinkCard({
           transition={{ duration: 0.5 }}
         />
 
-        <div className="relative z-10 flex items-center justify-center w-16 h-16 border border-[#c5b57a]/30 group-hover:border-[#c5b57a]/60 transition-colors duration-500">
-          <Icon className="text-[#494d17] group-hover:text-[#768a55] transition-colors duration-300" style={{ fontSize: "clamp(22px, 2vw, 32px)" }} />
+        <div className="relative z-10 flex items-center justify-center w-12 h-12 border border-[#c5b57a]/30 group-hover:border-[#c5b57a]/60 transition-colors duration-500">
+          <Icon className="text-[#494d17] group-hover:text-[#768a55] transition-colors duration-300" style={{ fontSize: "clamp(18px, 1.5vw, 24px)" }} />
         </div>
 
         <div className="relative z-10 flex-1">
-          <p className="font-['Playfair_Display',serif] text-[#2a2a2a] group-hover:text-[#494d17] transition-colors duration-300" style={{ fontWeight: 600, fontSize: "clamp(18px, 1.7vw, 26px)" }}>
+          <p className="font-['Playfair_Display',serif] text-[#2a2a2a] group-hover:text-[#494d17] transition-colors duration-300" style={{ fontWeight: 600, fontSize: "clamp(16px, 1.3vw, 21px)" }}>
             {label}
           </p>
-          <p className="font-['Gowun_Dodum',sans-serif] text-[#8a8a7a] tracking-wide" style={{ fontSize: "clamp(14px, 1.3vw, 18px)" }}>
+          <p className="font-['Gowun_Dodum',sans-serif] text-[#8a8a7a] tracking-wide" style={{ fontSize: "clamp(12px, 1vw, 15px)" }}>
             {subtext}
           </p>
         </div>
 
-        <ArrowUpRight className="relative z-10 text-[#c5b57a]/50 w-6 h-6 group-hover:text-[#494d17] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300" />
+        <ArrowUpRight className="relative z-10 text-[#c5b57a]/50 w-5 h-5 group-hover:text-[#494d17] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300" />
       </a>
     </motion.div>
   );
@@ -236,42 +236,42 @@ export function ContactSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative bg-white py-28 md:py-44 overflow-hidden"
+      className="relative bg-white py-22 md:py-32 overflow-hidden"
     >
       {/* Decorative orbs */}
-      <div className="absolute top-32 -right-40 w-80 h-80 rounded-full bg-[#c5b57a]/5 blur-3xl pointer-events-none" />
+      <div className="absolute top-32 -right-40 w-72 h-72 rounded-full bg-[#c5b57a]/5 blur-3xl pointer-events-none" />
       <div className="absolute bottom-20 -left-32 w-64 h-64 rounded-full bg-[#768a55]/5 blur-3xl pointer-events-none" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-[#d5b669]/[0.03] blur-3xl pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[420px] h-[420px] rounded-full bg-[#d5b669]/[0.03] blur-3xl pointer-events-none" />
 
       {/* Corner decorations */}
       <div className="absolute top-16 left-8 md:left-16 opacity-20">
-        <div className="w-16 h-px bg-[#c5b57a]" />
-        <div className="w-px h-16 bg-[#c5b57a]" />
+        <div className="w-12 h-px bg-[#c5b57a]" />
+        <div className="w-px h-12 bg-[#c5b57a]" />
       </div>
       <div className="absolute top-16 right-8 md:right-16 opacity-20">
-        <div className="w-16 h-px bg-[#c5b57a] ml-auto" />
-        <div className="w-px h-16 bg-[#c5b57a] ml-auto" />
+        <div className="w-12 h-px bg-[#c5b57a] ml-auto" />
+        <div className="w-px h-12 bg-[#c5b57a] ml-auto" />
       </div>
 
       <AnimatedContactTitle />
 
-      <div className="relative z-10 max-w-6xl mx-auto px-8 md:px-16">
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-16 lg:gap-24">
+      <div className="relative z-10 max-w-5xl mx-auto px-6 md:px-12">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-16">
           {/* Form - takes 3 columns */}
           <div className="lg:col-span-3">
-            <form ref={formRef} onSubmit={handleSubmit} className="space-y-10">
+            <form ref={formRef} onSubmit={handleSubmit} className="space-y-8">
               {/* Mail icon header */}
               <motion.div
-                className="flex items-center gap-4 mb-10"
+                className="flex items-center gap-3 mb-8"
                 initial={{ opacity: 0, x: -15 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ margin: "-40px" }}
                 transition={{ duration: 0.6 }}
               >
-                <div className="w-16 h-16 flex items-center justify-center border border-[#c5b57a]/30">
-                  <Mail className="text-[#494d17] w-8 h-8" />
+                <div className="w-10 h-10 flex items-center justify-center border border-[#c5b57a]/30">
+                  <Mail className="text-[#494d17] w-4 h-4" />
                 </div>
-                <p className="font-['Ephesis',sans-serif] text-[#768a55]" style={{ fontSize: "clamp(30px, 3.2vw, 52px)" }}>
+                <p className="font-['Ephesis',sans-serif] text-[#768a55]" style={{ fontSize: "clamp(28px, 2.6vw, 40px)" }}>
                   Send a message
                 </p>
               </motion.div>
@@ -315,7 +315,7 @@ export function ContactSection() {
                 <button
                   type="submit"
                   disabled={submitted}
-                  className="group relative flex items-center gap-4 px-14 py-6 border border-[#494d17]/60 bg-transparent hover:bg-[#494d17] cursor-pointer overflow-hidden transition-all duration-500 disabled:opacity-70"
+                  className="group relative flex items-center gap-3 px-10 py-4 border border-[#494d17]/60 bg-transparent hover:bg-[#494d17] cursor-pointer overflow-hidden transition-all duration-500 disabled:opacity-70"
                 >
                   <motion.div
                     className="absolute inset-0 bg-[#494d17]"
@@ -326,15 +326,15 @@ export function ContactSection() {
                   />
                   {submitted ? (
                     <>
-                      <CheckCircle className="relative z-10 w-6 h-6 text-[#768a55]" />
+                      <CheckCircle className="relative z-10 w-4 h-4 text-[#768a55]" />
                       <span className="relative z-10 font-['Limelight',sans-serif] text-[#768a55] tracking-[0.25em]" style={{ fontSize: "clamp(15px, 1.4vw, 19px)" }}>
                         SENT
                       </span>
                     </>
                   ) : (
                     <>
-                      <Send className="relative z-10 w-6 h-6 text-[#494d17] group-hover:text-white transition-colors duration-300" />
-                      <span className="relative z-10 font-['Limelight',sans-serif] text-[#494d17] tracking-[0.25em] group-hover:text-white transition-colors duration-300" style={{ fontSize: "clamp(15px, 1.4vw, 19px)" }}>
+                      <Send className="relative z-10 w-4 h-4 text-[#494d17] group-hover:text-white transition-colors duration-300" />
+                      <span className="relative z-10 font-['Limelight',sans-serif] text-[#494d17] tracking-[0.25em] group-hover:text-white transition-colors duration-300" style={{ fontSize: "clamp(13px, 1vw, 16px)" }}>
                         SEND MESSAGE
                       </span>
                     </>
@@ -348,7 +348,7 @@ export function ContactSection() {
           <div className="lg:col-span-2 flex flex-col gap-5">
             <motion.p
               className="font-['Ephesis',sans-serif] text-[#768a55] mb-2"
-              style={{ fontSize: "clamp(30px, 3.2vw, 52px)" }}
+              style={{ fontSize: "clamp(28px, 2.6vw, 40px)" }}
               initial={{ opacity: 0, x: 15 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ margin: "-40px" }}
@@ -387,10 +387,10 @@ export function ContactSection() {
               viewport={{ margin: "-30px" }}
               transition={{ duration: 1, delay: 0.5 }}
             >
-              <p className="font-['Playfair_Display',serif] text-[#b5b5a5] italic leading-relaxed" style={{ fontSize: "clamp(16px, 1.5vw, 22px)" }}>
+              <p className="font-['Playfair_Display',serif] text-[#b5b5a5] italic leading-relaxed" style={{ fontSize: "clamp(14px, 1.1vw, 18px)" }}>
                 "Every artist was first an amateur."
               </p>
-              <p className="font-['Cormorant_SC',serif] text-[#c5b57a]/50 tracking-[0.3em] mt-2" style={{ fontSize: "clamp(13px, 1.1vw, 16px)" }}>
+              <p className="font-['Cormorant_SC',serif] text-[#c5b57a]/50 tracking-[0.3em] mt-2" style={{ fontSize: "clamp(11px, 0.9vw, 14px)" }}>
                 — Ralph Waldo Emerson
               </p>
             </motion.div>
@@ -400,7 +400,7 @@ export function ContactSection() {
 
       {/* Bottom decorative element */}
       <motion.div
-        className="flex justify-center mt-20 md:mt-28"
+        className="flex justify-center mt-16 md:mt-22"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ margin: "-30px" }}

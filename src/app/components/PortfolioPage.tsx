@@ -187,7 +187,7 @@ export function PortfolioPage() {
           <p className="font-['Cormorant_SC',serif] text-[#c5b57a]/70 tracking-[0.4em] uppercase" style={{ fontWeight: 400, fontSize: "clamp(13px, 1.2vw, 18px)" }}>
             Selected Works
           </p>
-          <p className="font-['Playfair_Display',serif] text-[#fff8d9] tracking-[0.2em] -mt-0.5" style={{ fontWeight: 700, fontSize: "clamp(16px, 1.5vw, 22px)" }}>
+          <p className="font-['Playfair_Display',serif] text-[#fff8d9] tracking-[0.2em] -mt-0.5" style={{ fontWeight: 700, fontSize: "clamp(14px, 1.2vw, 18px)" }}>
             PORTFOLIO
           </p>
         </motion.div>
@@ -202,13 +202,13 @@ export function PortfolioPage() {
         transition={{ duration: 0.8, delay: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
       >
         <div className="flex items-center">
-          <span className="font-['Limelight',sans-serif] text-[#fff8d9] leading-none" style={{ fontSize: "clamp(26px, 3.5vw, 52px)" }}>
+          <span className="font-['Limelight',sans-serif] text-[#fff8d9] leading-none" style={{ fontSize: "clamp(22px, 2.8vw, 40px)" }}>
             {currentIndex + 1}
           </span>
-          <span className="font-['Limelight',sans-serif] text-[#c5b57a]/40 leading-none mx-2" style={{ fontSize: "clamp(26px, 3.5vw, 52px)" }}>
+          <span className="font-['Limelight',sans-serif] text-[#c5b57a]/40 leading-none mx-2" style={{ fontSize: "clamp(22px, 2.8vw, 40px)" }}>
             /
           </span>
-          <span className="font-['Limelight',sans-serif] text-[#c5b57a]/40 leading-none" style={{ fontSize: "clamp(26px, 3.5vw, 52px)" }}>
+          <span className="font-['Limelight',sans-serif] text-[#c5b57a]/40 leading-none" style={{ fontSize: "clamp(22px, 2.8vw, 40px)" }}>
             {artworks.length}
           </span>
         </div>
@@ -264,10 +264,10 @@ export function PortfolioPage() {
               />
               {/* Title area - slides with the image */}
               <div className="mt-8 text-center">
-                <p className="font-['Playfair_Display',serif] text-[#fff8d9] tracking-[0.2em] uppercase" style={{ fontWeight: 700, fontSize: "clamp(22px, 3vw, 46px)" }}>
+                <p className="font-['Playfair_Display',serif] text-[#fff8d9] tracking-[0.2em] uppercase" style={{ fontWeight: 700, fontSize: "clamp(18px, 2.2vw, 34px)" }}>
                   {artwork.title}
                 </p>
-                <p className="font-['Cormorant_SC',serif] text-[#c5b57a]/70 tracking-[0.4em] uppercase" style={{ fontWeight: 400, fontSize: "clamp(14px, 1.5vw, 22px)" }}>
+                <p className="font-['Cormorant_SC',serif] text-[#c5b57a]/70 tracking-[0.4em] uppercase" style={{ fontWeight: 400, fontSize: "clamp(12px, 1vw, 16px)" }}>
                   {artwork.subtitle}
                 </p>
               </div>
@@ -287,18 +287,18 @@ export function PortfolioPage() {
         >
           <button
             onClick={() => paginate(-1)}
-            className="flex items-center gap-3 bg-transparent border border-[#c5b57a]/30 px-6 py-3 cursor-pointer group transition-all duration-300 hover:border-[#c5b57a]/60 hover:bg-[#c5b57a]/5"
+            className="flex items-center gap-3 bg-transparent border border-[#c5b57a]/30 px-5 py-2.5 cursor-pointer group transition-all duration-300 hover:border-[#c5b57a]/60 hover:bg-[#c5b57a]/5"
           >
             <ChevronLeft className="w-5 h-5 text-[#c5b57a]/60 group-hover:text-[#fff8d9] transition-colors" />
-            <span className="font-['Limelight',sans-serif] text-[#c5b57a]/60 tracking-[0.2em] group-hover:text-[#fff8d9] transition-colors" style={{ fontSize: "clamp(13px, 1.2vw, 18px)" }}>
+            <span className="font-['Limelight',sans-serif] text-[#c5b57a]/60 tracking-[0.2em] group-hover:text-[#fff8d9] transition-colors" style={{ fontSize: "clamp(12px, 0.95vw, 15px)" }}>
               PREV
             </span>
           </button>
           <button
             onClick={() => paginate(1)}
-            className="flex items-center gap-3 bg-transparent border border-[#c5b57a]/30 px-6 py-3 cursor-pointer group transition-all duration-300 hover:border-[#c5b57a]/60 hover:bg-[#c5b57a]/5"
+            className="flex items-center gap-3 bg-transparent border border-[#c5b57a]/30 px-5 py-2.5 cursor-pointer group transition-all duration-300 hover:border-[#c5b57a]/60 hover:bg-[#c5b57a]/5"
           >
-            <span className="font-['Limelight',sans-serif] text-[#c5b57a]/60 tracking-[0.2em] group-hover:text-[#fff8d9] transition-colors" style={{ fontSize: "clamp(13px, 1.2vw, 18px)" }}>
+            <span className="font-['Limelight',sans-serif] text-[#c5b57a]/60 tracking-[0.2em] group-hover:text-[#fff8d9] transition-colors" style={{ fontSize: "clamp(12px, 0.95vw, 15px)" }}>
               NEXT
             </span>
             <ChevronRight className="w-5 h-5 text-[#c5b57a]/60 group-hover:text-[#fff8d9] transition-colors" />

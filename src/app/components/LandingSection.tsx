@@ -45,7 +45,7 @@ export function LandingSection() {
           animate={isTextInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 50, scale: 0.92 }}
           transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
           className="font-['Plaster',sans-serif] text-[#fff8d9] text-center leading-none"
-          style={{ fontSize: "clamp(52px, 9vw, 130px)" }}
+          style={{ fontSize: "clamp(46px, 7.5vw, 104px)" }}
         >
           Rachel Rafik
         </motion.h1>
@@ -53,7 +53,7 @@ export function LandingSection() {
           animate={isTextInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 1.2, delay: isTextInView ? 0.3 : 0, ease: "easeOut" }}
           className="font-['Ephesis',sans-serif] text-[#fff8d9] text-center mt-4"
-          style={{ fontSize: "clamp(26px, 4.5vw, 72px)" }}
+          style={{ fontSize: "clamp(24px, 3.8vw, 54px)" }}
         >
           Developer, Artist, Designer
         </motion.p>
@@ -64,7 +64,7 @@ export function LandingSection() {
         style={{ opacity }}
         className="absolute bottom-8 left-6 md:left-8"
       >
-        <p className="font-['Pompiere',sans-serif] text-[#d5b669]" style={{ fontSize: "clamp(13px, 1.5vw, 22px)" }}>
+        <p className="font-['Pompiere',sans-serif] text-[#d5b669]" style={{ fontSize: "clamp(12px, 1.2vw, 18px)" }}>
           Pond in the Woods &bull; Narcisse Virgile Diaz de la Pe&ntilde;a
         </p>
       </motion.div>

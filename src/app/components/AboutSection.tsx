@@ -43,10 +43,10 @@ export function AboutSection() {
   }, [rotateX, rotateY]);
 
   return (
-    <section ref={ref} className="relative bg-white py-[15vh] md:py-[22vh] px-8 md:px-20 overflow-hidden min-h-screen flex items-center">
-      <div ref={inViewRef} className="max-w-[1400px] mx-auto flex flex-col lg:flex-row gap-12 lg:gap-20 items-center">
+    <section ref={ref} className="relative bg-white py-[14vh] md:py-[18vh] px-6 md:px-16 overflow-hidden min-h-screen flex items-center">
+      <div ref={inViewRef} className="max-w-[1200px] mx-auto flex flex-col lg:flex-row gap-10 lg:gap-16 items-center">
         {/* Image with parallax */}
-        <motion.div className="relative w-full lg:w-[46%] shrink-0" style={{ maxWidth: "640px" }}>
+        <motion.div className="relative w-full lg:w-[44%] shrink-0" style={{ maxWidth: "540px" }}>
           <motion.div
             style={{ y: imageY }}
             className="relative"
@@ -82,7 +82,7 @@ export function AboutSection() {
             animate={show ? { opacity: 1 } : { opacity: 0 }}
             transition={{ duration: 0.6, delay: show ? 0.5 : 0 }}
             className="font-['Pompiere',sans-serif] text-black mt-3"
-            style={{ fontSize: "clamp(15px, 1.6vw, 24px)" }}
+            style={{ fontSize: "clamp(14px, 1.2vw, 20px)" }}
           >
             The Interior of the Palm House on the Pfaueninsel Near Potsdam &bull; Carl Blechen
           </motion.p>
@@ -94,15 +94,15 @@ export function AboutSection() {
             animate={show ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
             transition={{ duration: 0.8, delay: show ? 0.1 : 0, ease: "easeOut" }}
             className="font-['Limelight',sans-serif] text-[#494d17] text-center lg:text-left leading-none mb-10"
-            style={{ fontSize: "clamp(54px, 8.5vw, 120px)" }}
+            style={{ fontSize: "clamp(46px, 6.2vw, 84px)" }}
           >
             ABOUT ME
           </motion.h2>
           <motion.div
             animate={show ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
             transition={{ duration: 0.8, delay: show ? 0.3 : 0, ease: "easeOut" }}
-            className="font-['Gowun_Dodum',sans-serif] text-black text-justify space-y-8"
-            style={{ fontSize: "clamp(19px, 2vw, 30px)" }}
+            className="font-['Gowun_Dodum',sans-serif] text-black text-justify space-y-6"
+            style={{ fontSize: "clamp(17px, 1.35vw, 22px)" }}
           >
             <p>
               I'm a{" "}
@@ -131,7 +131,7 @@ export function AboutSection() {
                 here
               </span>
               . I love art so much that I put some of my favorites throughout
-              this site!
+              this site.
             </p>
           </motion.div>
         </div>

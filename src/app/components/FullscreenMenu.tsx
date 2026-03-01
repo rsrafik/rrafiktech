@@ -6,16 +6,16 @@ import waterLilyImg from "../../assets/water-lily.png";
 interface MenuItem {
   label: string;
   align: "left" | "center" | "right";
-  offsetX: string;
+  offsetX: number;
   sectionId: string;
 }
 
 const menuItems: MenuItem[] = [
-  { label: "ABOUT", align: "left", offsetX: "3%", sectionId: "about" },
-  { label: "SKILLS", align: "left", offsetX: "17%", sectionId: "skills" },
-  { label: "PROJECTS", align: "left", offsetX: "31%", sectionId: "projects" },
-  { label: "PORTFOLIO", align: "left", offsetX: "48%", sectionId: "portfolio" },
-  { label: "CONTACT", align: "left", offsetX: "66%", sectionId: "contact" },
+  { label: "ABOUT", align: "left", offsetX: 3, sectionId: "about" },
+  { label: "SKILLS", align: "left", offsetX: 15, sectionId: "skills" },
+  { label: "PROJECTS", align: "left", offsetX: 27, sectionId: "projects" },
+  { label: "PORTFOLIO", align: "left", offsetX: 40, sectionId: "portfolio" },
+  { label: "CONTACT", align: "left", offsetX: 52, sectionId: "contact" },
 ];
 
 // Sections that have their own route instead of being on the home page
@@ -167,17 +167,30 @@ export function FullscreenMenu({ isOnLightBg = false, activeSection }: { isOnLig
     pendingScrollRef.current = null;
   }, []);
 
+  const getMenuOffset = useCallback(
+    (offsetX: number) => {
+      const width = viewportSize.width || (typeof window !== "undefined" ? window.innerWidth : 1440);
+
+      if (width < 700) return `${offsetX * 0.52}%`;
+      if (width < 1000) return `${offsetX * 0.7}%`;
+      if (width < 1280) return `${offsetX * 0.84}%`;
+
+      return `${offsetX}%`;
+    },
+    [viewportSize.width]
+  );
+
   return (
     <>
       {/* Menu Button - top right */}
       <motion.button
         onClick={handleOpen}
-        className={`fixed top-6 right-6 z-[90] px-8 py-3 backdrop-blur-sm border-none cursor-pointer font-['Limelight',sans-serif] text-[#fff8d9] tracking-widest transition-all duration-500 ease-in-out ${
+        className={`fixed top-6 right-6 z-[90] px-6 py-2.5 backdrop-blur-sm border-none cursor-pointer font-['Limelight',sans-serif] text-[#fff8d9] tracking-widest transition-all duration-500 ease-in-out ${
           isOnLightBg
             ? "bg-[rgba(58,74,58,0.85)] hover:bg-[rgba(58,74,58,1)]"
             : "bg-white/20 hover:bg-[#fff8d9]/30"
         }`}
-        style={{ fontSize: "clamp(13px, 1.2vw, 17px)" }}
+        style={{ fontSize: "clamp(12px, 1vw, 15px)" }}
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.5 }}
@@ -214,8 +227,8 @@ export function FullscreenMenu({ isOnLightBg = false, activeSection }: { isOnLig
             {/* Close Button - top right */}
             <motion.button
               onClick={handleClose}
-              className="absolute top-6 right-6 z-[110] px-8 py-3 bg-white/20 backdrop-blur-sm border-none cursor-pointer font-['Limelight',sans-serif] text-[#fff8d9] tracking-widest transition-all duration-300 hover:bg-[#fff8d9]/30"
-              style={{ fontSize: "clamp(13px, 1.2vw, 17px)" }}
+              className="absolute top-6 right-6 z-[110] px-6 py-2.5 bg-white/20 backdrop-blur-sm border-none cursor-pointer font-['Limelight',sans-serif] text-[#fff8d9] tracking-widest transition-all duration-300 hover:bg-[#fff8d9]/30"
+              style={{ fontSize: "clamp(12px, 1vw, 15px)" }}
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3, delay: 0.3 }}
@@ -224,7 +237,7 @@ export function FullscreenMenu({ isOnLightBg = false, activeSection }: { isOnLig
             </motion.button>
 
             {/* Menu Items */}
-            <div className="relative z-[105] flex flex-col justify-center h-full px-6 md:px-12 py-24 gap-2 md:gap-0">
+            <div className="relative z-[105] flex flex-col justify-center h-full px-6 md:px-10 py-24 gap-2 md:gap-0">
               {menuItems.map((item, index) => {
                 // Reverse cascade: last item exits first (index 0 delay = biggest)
                 const reverseIndex = menuItems.length - 1 - index;
@@ -309,14 +322,14 @@ export function FullscreenMenu({ isOnLightBg = false, activeSection }: { isOnLig
                   <a
                     href={`#${item.sectionId}`}
                     className="relative block py-2 md:py-3 cursor-pointer transition-colors duration-300"
-                    style={{ paddingLeft: item.offsetX }}
+                    style={{ paddingLeft: getMenuOffset(item.offsetX) }}
                     onMouseEnter={() => {
                       if (!isClosing && activeSection !== item.sectionId) setHoveredIndex(index);
                     }}
                     onMouseLeave={() => setHoveredIndex(null)}
                     onClick={(e) => handleMenuItemClick(e, item.sectionId)}
                   ><span
-                      className="font-['Limelight',sans-serif] text-[46px] sm:text-[68px] md:text-[92px] lg:text-[118px] xl:text-[138px] leading-none transition-all duration-300 relative z-10"
+                      className="font-['Limelight',sans-serif] text-[38px] sm:text-[54px] md:text-[72px] lg:text-[92px] xl:text-[110px] leading-none transition-all duration-300 relative z-10"
                       style={{
                         color: "#fff8d9",
                         opacity:
@@ -344,7 +357,7 @@ export function FullscreenMenu({ isOnLightBg = false, activeSection }: { isOnLig
 
             {/* Bottom left accent text */}
             <motion.span
-              className="absolute bottom-6 left-6 z-[105] font-['Gowun_Dodum',sans-serif] text-[#c5b57a]/50 text-[13px] tracking-[0.2em] uppercase"
+              className="absolute bottom-6 left-6 z-[105] font-['Gowun_Dodum',sans-serif] text-[#c5b57a]/50 text-[12px] tracking-[0.2em] uppercase"
               initial={{ opacity: 0 }}
               animate={isClosing ? { opacity: 0 } : { opacity: 1 }}
               transition={{ duration: isClosing ? 0.2 : 0.6, delay: isClosing ? 0 : 0.6 }}

@@ -72,12 +72,12 @@ function MarqueeRow({
   const repeated = [...skills, ...skills, ...skills, ...skills];
 
   return (
-    <div ref={rowRef} className="flex flex-col gap-3 mb-12">
+    <div ref={rowRef} className="flex flex-col gap-3 mb-10">
       <motion.p
         animate={isRowInView ? { opacity: 1, x: 0 } : { opacity: 0, x: direction === "left" ? -20 : 20 }}
         transition={{ duration: 0.6 }}
         className="font-['Ephesis',sans-serif] text-[#768a55] px-6 md:px-16"
-        style={{ fontSize: "clamp(28px, 3.4vw, 52px)" }}
+        style={{ fontSize: "clamp(24px, 2.7vw, 38px)" }}
       >
         {label}
       </motion.p>
@@ -101,13 +101,13 @@ function MarqueeRow({
         >
           {repeated.map((skill, i) => (
             <div key={`${skill.name}-${i}`} className="flex items-center">
-              <div className="flex items-center gap-4 px-6 py-2.5 group cursor-default">
-                <skill.icon className="text-[#494d17] opacity-70 group-hover:opacity-100 transition-opacity duration-300" style={{ fontSize: "clamp(24px, 2.5vw, 44px)" }} />
-                <span className="font-['Gowun_Dodum',sans-serif] text-[#2a2a2a] whitespace-nowrap group-hover:text-[#494d17] transition-colors duration-300" style={{ fontSize: "clamp(20px, 2.1vw, 34px)" }}>
+              <div className="flex items-center gap-3 px-4 py-2 group cursor-default">
+                <skill.icon className="text-[#494d17] opacity-70 group-hover:opacity-100 transition-opacity duration-300" style={{ fontSize: "clamp(20px, 1.8vw, 30px)" }} />
+                <span className="font-['Gowun_Dodum',sans-serif] text-[#2a2a2a] whitespace-nowrap group-hover:text-[#494d17] transition-colors duration-300" style={{ fontSize: "clamp(17px, 1.45vw, 24px)" }}>
                   {skill.name}
                 </span>
               </div>
-              <span className="text-[#c5b57a] mx-3 select-none" style={{ fontSize: "clamp(18px, 2vw, 30px)" }}>
+              <span className="text-[#c5b57a] mx-2.5 select-none" style={{ fontSize: "clamp(16px, 1.3vw, 22px)" }}>
                 &bull;
               </span>
             </div>
@@ -125,14 +125,14 @@ function AnimatedTitle() {
   const letters = "MY SKILLS".split("");
 
   return (
-    <div ref={titleRef} className="flex flex-col items-center mb-10 md:mb-16 relative z-10">
+    <div ref={titleRef} className="flex flex-col items-center mb-8 md:mb-12 relative z-10">
       <motion.div
         animate={isInView ? { scaleX: 1, opacity: 1 } : { scaleX: 0, opacity: 0 }}
         transition={{ duration: 1, delay: isInView ? 0.1 : 0, ease: [0.22, 1, 0.36, 1] }}
         className="w-32 h-px bg-[#c5b57a] mb-6 origin-center"
       />
 
-      <h2 className="font-['Limelight',sans-serif] text-[#494d17] text-center leading-none flex overflow-hidden" style={{ fontSize: "clamp(48px, 7vw, 102px)" }}>
+      <h2 className="font-['Limelight',sans-serif] text-[#494d17] text-center leading-none flex overflow-hidden" style={{ fontSize: "clamp(42px, 5.8vw, 84px)" }}>
         {letters.map((letter, i) => (
           <motion.span
             key={i}
@@ -166,7 +166,7 @@ function AnimatedTitle() {
       <motion.div
         animate={isInView ? { opacity: 0.15, scale: 1 } : { opacity: 0, scale: 0.5 }}
         transition={{ duration: 1.5, delay: isInView ? 0.6 : 0, ease: "easeOut" }}
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] md:w-[520px] h-[110px] rounded-full bg-[#c5b57a] blur-3xl pointer-events-none -z-10"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[280px] md:w-[430px] h-[96px] rounded-full bg-[#c5b57a] blur-3xl pointer-events-none -z-10"
       />
     </div>
   );
@@ -203,7 +203,7 @@ export function SkillsSection() {
   const orb3Y = useTransform(scrollYProgress, [0, 1], [0, -60]);
 
   return (
-    <section ref={sectionRef} className="relative bg-gradient-to-b from-white via-[#faf8f0] to-[#f3efe2] py-20 md:py-32 overflow-hidden min-h-screen">
+    <section ref={sectionRef} className="relative bg-gradient-to-b from-white via-[#faf8f0] to-[#f3efe2] py-16 md:py-24 overflow-hidden min-h-screen">
       {/* Decorative warm accent circles with parallax */}
       <motion.div
         style={{ y: orb1Y }}
@@ -215,7 +215,7 @@ export function SkillsSection() {
       />
       <motion.div
         style={{ y: orb3Y }}
-        className="hidden md:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-[#c5b57a]/5 blur-3xl pointer-events-none"
+        className="hidden md:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-[#c5b57a]/5 blur-3xl pointer-events-none"
       />
       <motion.div
         style={{ y: orb3Y }}
@@ -230,7 +230,7 @@ export function SkillsSection() {
           rotate: statueRotate,
           scale: statueScale,
         }}
-        className="hidden md:block absolute -left-12 bottom-0 w-[380px] lg:w-[430px] pointer-events-none select-none origin-bottom"
+        className="hidden md:block absolute -left-12 bottom-0 w-[360px] lg:w-[420px] pointer-events-none select-none origin-bottom"
       >
         <img
           src={statueImg}
@@ -250,7 +250,7 @@ export function SkillsSection() {
             rotate: bustRotate,
             scale: bustScale,
           }}
-          className="hidden lg:block absolute -right-10 bottom-0 w-[660px] xl:w-[740px] pointer-events-none select-none -scale-x-100 z-0 origin-bottom"
+          className="hidden lg:block absolute -right-10 bottom-0 w-[600px] xl:w-[690px] pointer-events-none select-none -scale-x-100 z-0 origin-bottom"
         >
           <img
             src={bustImg}
