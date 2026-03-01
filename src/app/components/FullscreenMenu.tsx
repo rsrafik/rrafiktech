@@ -80,6 +80,8 @@ export function FullscreenMenu({ isOnLightBg = false, activeSection }: { isOnLig
 
       if (!rect || viewportSize.width === 0 || viewportSize.height === 0) {
         return {
+          position: "absolute" as const,
+          inset: 0,
           backgroundImage: `url(${waterLilyImg})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
@@ -87,12 +89,14 @@ export function FullscreenMenu({ isOnLightBg = false, activeSection }: { isOnLig
       }
 
       return {
+        position: "absolute" as const,
+        left: `${-rect.left}px`,
+        top: `${-rect.top}px`,
         backgroundImage: `url(${waterLilyImg})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         width: `${viewportSize.width}px`,
         height: `${viewportSize.height}px`,
-        transform: `translate(${-rect.left}px, ${-rect.top}px)`,
       };
     },
     [stripeRects, viewportSize.height, viewportSize.width]
@@ -267,10 +271,23 @@ export function FullscreenMenu({ isOnLightBg = false, activeSection }: { isOnLig
                         transition={{ duration: 0.3, ease: "easeOut" }}
                         style={{ originY: 0.5 }}
                       >
-                        <div
-                          className="absolute inset-0 opacity-70"
-                          style={getStripeBackgroundStyle(index)}
+                        <motion.div
+                          className="absolute inset-0"
+                          initial={{ x: -18, scale: 1.06, opacity: 0.55 }}
+                          animate={{ x: 0, scale: 1, opacity: 0.78 }}
+                          exit={{ x: 10, scale: 1.03, opacity: 0 }}
+                          transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                        >
+                          <div style={getStripeBackgroundStyle(index)} />
+                        </motion.div>
+                        <motion.div
+                          className="absolute inset-y-[-15%] w-[36%] bg-gradient-to-r from-transparent via-[#fff8d9]/35 to-transparent blur-2xl mix-blend-screen"
+                          initial={{ x: "-135%", opacity: 0 }}
+                          animate={{ x: "255%", opacity: [0, 0.8, 0] }}
+                          exit={{ opacity: 0 }}
+                          transition={{ duration: 0.95, ease: [0.22, 1, 0.36, 1] }}
                         />
+                        <div className="absolute inset-0 bg-gradient-to-r from-[#1a1a0e]/25 via-transparent to-[#1a1a0e]/25" />
                       </motion.div>
                     )}
                   </AnimatePresence>
@@ -285,6 +302,7 @@ export function FullscreenMenu({ isOnLightBg = false, activeSection }: { isOnLig
                         className="absolute inset-0 opacity-70"
                         style={getStripeBackgroundStyle(index)}
                       />
+                      <div className="absolute inset-0 bg-gradient-to-r from-[#1a1a0e]/20 via-transparent to-[#1a1a0e]/20" />
                     </div>
                   )}
 
