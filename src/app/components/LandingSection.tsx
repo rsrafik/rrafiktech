@@ -29,6 +29,8 @@ export function LandingSection() {
           alt="Pond in the Woods by Narcisse Virgile Diaz de la Peña"
           className="w-full h-full object-cover"
           src={imgPondInTheWoods}
+          decoding="async"
+          fetchPriority="high"
         />
       </motion.div>
 

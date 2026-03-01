@@ -62,11 +62,16 @@ export function PortfolioPage() {
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [hasLoaded, setHasLoaded] = useState(false);
+  const [isCompactMobile, setIsCompactMobile] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => setHasLoaded(true), 100);
-    return () => clearTimeout(timer);
+    const mediaQuery = window.matchMedia("(max-width: 640px)");
+    const syncViewport = () => setIsCompactMobile(mediaQuery.matches);
+
+    syncViewport();
+    mediaQuery.addEventListener("change", syncViewport);
+
+    return () => mediaQuery.removeEventListener("change", syncViewport);
   }, []);
 
   const paginate = useCallback(
@@ -150,7 +155,7 @@ export function PortfolioPage() {
   return (
     <div
       ref={containerRef}
-      className="relative w-full h-screen overflow-hidden select-none"
+      className="relative w-full h-[100svh] overflow-hidden select-none"
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
@@ -165,7 +170,8 @@ export function PortfolioPage() {
         alt=""
         className="absolute inset-0 w-full h-full object-cover pointer-events-none"
         draggable={false}
-        initial={{ scale: 1.2, opacity: 0 }}
+        decoding="async"
+      initial={{ scale: 1.2, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 1.8, ease: [0.25, 0.1, 0.25, 1] }}
       />
@@ -177,7 +183,7 @@ export function PortfolioPage() {
       />
 
       {/* Top header area */}
-      <div className="absolute top-0 left-0 right-0 z-20 px-6 md:px-12 pt-6">
+      <div className="absolute top-0 left-0 right-0 z-20 px-4 sm:px-6 md:px-12 pt-4 sm:pt-6">
         {/* Left: Section label */}
         <motion.div
           initial={{ opacity: 0, y: -30 }}
@@ -195,8 +201,8 @@ export function PortfolioPage() {
 
       {/* Counter - positioned to vertically center with MENU button */}
       <motion.div
-        className="fixed top-6 z-20 flex items-center"
-        style={{ right: "calc(1.5rem + clamp(150px, 18vw, 190px))" }}
+        className="fixed top-6 z-20 flex items-center h-[44px] sm:h-[46px]"
+        style={{ right: "calc(1rem + clamp(132px, 24vw, 198px))" }}
         initial={{ opacity: 0, y: -30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
@@ -216,14 +222,14 @@ export function PortfolioPage() {
 
       {/* Decorative horizontal line */}
       <motion.div
-        className="absolute top-[90px] left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#c5b57a]/30 to-transparent z-10"
+        className="absolute top-[76px] sm:top-[90px] left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#c5b57a]/30 to-transparent z-10"
         initial={{ scaleX: 0, opacity: 0 }}
         animate={{ scaleX: 1, opacity: 1 }}
         transition={{ duration: 1.2, delay: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
       />
 
       {/* Main image area - centered between header line and bottom controls */}
-      <div className="absolute top-[100px] bottom-[70px] left-0 right-0 flex flex-col items-center justify-center z-10 cursor-grab active:cursor-grabbing">
+      <div className="absolute top-[88px] sm:top-[100px] bottom-[118px] sm:bottom-[86px] md:bottom-[70px] left-0 right-0 flex flex-col items-center justify-center z-10 cursor-grab active:cursor-grabbing">
         <motion.div
           className="relative"
           initial={{ opacity: 0, scale: 0.85, y: 40 }}
@@ -244,7 +250,7 @@ export function PortfolioPage() {
                 scale: { duration: 0.4 },
               }}
               className="relative flex flex-col items-center"
-              drag="x"
+              drag={isCompactMobile ? false : "x"}
               dragConstraints={{ left: 0, right: 0 }}
               dragElastic={0.7}
               onDragEnd={(_e, { offset, velocity }) => {
@@ -259,15 +265,16 @@ export function PortfolioPage() {
               <img
                 src={artwork.src}
                 alt={artwork.title}
-                className="max-w-[85vw] md:max-w-[48vw] max-h-[58vh] md:max-h-[65vh] w-auto h-auto object-contain pointer-events-none"
+                className="max-w-[78vw] sm:max-w-[84vw] md:max-w-[48vw] max-h-[43svh] sm:max-h-[54vh] md:max-h-[65vh] w-auto h-auto object-contain pointer-events-none"
                 draggable={false}
+                decoding="async"
               />
               {/* Title area - slides with the image */}
-              <div className="mt-8 text-center">
-                <p className="font-['Playfair_Display',serif] text-[#fff8d9] tracking-[0.2em] uppercase" style={{ fontWeight: 700, fontSize: "clamp(18px, 2.2vw, 34px)" }}>
+              <div className="mt-5 sm:mt-8 text-center px-4">
+                <p className="font-['Playfair_Display',serif] text-[#fff8d9] tracking-[0.2em] uppercase" style={{ fontWeight: 700, fontSize: "clamp(16px, 2.2vw, 34px)" }}>
                   {artwork.title}
                 </p>
-                <p className="font-['Cormorant_SC',serif] text-[#c5b57a]/70 tracking-[0.4em] uppercase" style={{ fontWeight: 400, fontSize: "clamp(12px, 1vw, 16px)" }}>
+                <p className="font-['Cormorant_SC',serif] text-[#c5b57a]/70 tracking-[0.35em] uppercase" style={{ fontWeight: 400, fontSize: "clamp(11px, 1vw, 16px)" }}>
                   {artwork.subtitle}
                 </p>
               </div>
@@ -277,37 +284,37 @@ export function PortfolioPage() {
       </div>
 
       {/* Bottom controls */}
-      <div className="absolute bottom-6 md:bottom-8 left-0 right-0 z-20 flex items-center justify-between px-6 md:px-12">
+      <div className="absolute bottom-4 sm:bottom-6 md:bottom-8 left-0 right-0 z-20 flex flex-row items-center justify-between gap-3 px-4 sm:px-6 md:px-12">
         {/* PREV / NEXT buttons */}
         <motion.div
-          className="flex items-center gap-4"
+          className="flex items-center gap-2 sm:gap-4"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.1, ease: [0.25, 0.1, 0.25, 1] }}
         >
           <button
             onClick={() => paginate(-1)}
-            className="flex items-center gap-3 bg-transparent border border-[#c5b57a]/30 px-5 py-2.5 cursor-pointer group transition-all duration-300 hover:border-[#c5b57a]/60 hover:bg-[#c5b57a]/5"
+            className="flex items-center gap-2 sm:gap-3 bg-transparent border border-[#c5b57a]/30 px-4 sm:px-5 py-2 sm:py-2.5 cursor-pointer group transition-all duration-300 hover:border-[#c5b57a]/60 hover:bg-[#c5b57a]/5"
           >
-            <ChevronLeft className="w-5 h-5 text-[#c5b57a]/60 group-hover:text-[#fff8d9] transition-colors" />
+            <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 text-[#c5b57a]/60 group-hover:text-[#fff8d9] transition-colors" />
             <span className="font-['Limelight',sans-serif] text-[#c5b57a]/60 tracking-[0.2em] group-hover:text-[#fff8d9] transition-colors" style={{ fontSize: "clamp(12px, 0.95vw, 15px)" }}>
               PREV
             </span>
           </button>
           <button
             onClick={() => paginate(1)}
-            className="flex items-center gap-3 bg-transparent border border-[#c5b57a]/30 px-5 py-2.5 cursor-pointer group transition-all duration-300 hover:border-[#c5b57a]/60 hover:bg-[#c5b57a]/5"
+            className="flex items-center gap-2 sm:gap-3 bg-transparent border border-[#c5b57a]/30 px-4 sm:px-5 py-2 sm:py-2.5 cursor-pointer group transition-all duration-300 hover:border-[#c5b57a]/60 hover:bg-[#c5b57a]/5"
           >
             <span className="font-['Limelight',sans-serif] text-[#c5b57a]/60 tracking-[0.2em] group-hover:text-[#fff8d9] transition-colors" style={{ fontSize: "clamp(12px, 0.95vw, 15px)" }}>
               NEXT
             </span>
-            <ChevronRight className="w-5 h-5 text-[#c5b57a]/60 group-hover:text-[#fff8d9] transition-colors" />
+            <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 text-[#c5b57a]/60 group-hover:text-[#fff8d9] transition-colors" />
           </button>
         </motion.div>
 
         {/* Indicator bars */}
         <motion.div
-          className="flex items-center gap-1.5"
+          className="flex items-center gap-1.5 shrink-0"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.2, ease: [0.25, 0.1, 0.25, 1] }}
@@ -318,13 +325,13 @@ export function PortfolioPage() {
               onClick={() =>
                 setPage(([prev]) => [i, i > prev ? 1 : -1])
               }
-              className="relative h-6 cursor-pointer bg-transparent border-none p-0 transition-all duration-300"
-              style={{ width: i === currentIndex ? 20 : 8 }}
+              className="relative h-5 sm:h-6 cursor-pointer bg-transparent border-none p-0 transition-all duration-300"
+              style={{ width: i === currentIndex ? 18 : 7 }}
             >
               <div
                 className="absolute bottom-0 left-0 right-0 transition-all duration-500"
                 style={{
-                  height: i === currentIndex ? 20 : 14,
+                  height: i === currentIndex ? 16 : 12,
                   backgroundColor:
                     i === currentIndex
                       ? "#fff8d9"

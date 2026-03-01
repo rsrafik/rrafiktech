@@ -55,15 +55,30 @@ export function HomePage() {
     <div className="relative w-full min-h-screen bg-white overflow-x-hidden">
       <FullscreenMenu isOnLightBg={isOnLightBg} activeSection={activeSection} />
       <LandingSection />
-      <div ref={aboutRef} id="about" className="relative">
+      <div
+        ref={aboutRef}
+        id="about"
+        className="relative"
+        style={{ contentVisibility: "auto", containIntrinsicSize: "1000px" }}
+      >
         <AboutSection />
       </div>
-      <div ref={skillsRef} id="skills" className="relative">
+      <div
+        ref={skillsRef}
+        id="skills"
+        className="relative"
+        style={{ contentVisibility: "auto", containIntrinsicSize: "1200px" }}
+      >
         <SkillsSection />
       </div>
       {/* Gradient bridge: parchment fades to white before Contact */}
       <div className="h-36 md:h-52 bg-gradient-to-b from-[#f3efe2] to-white" />
-      <div ref={contactRef} id="contact" className="relative">
+      <div
+        ref={contactRef}
+        id="contact"
+        className="relative"
+        style={{ contentVisibility: "auto", containIntrinsicSize: "1200px" }}
+      >
         <ContactSection />
       </div>
     </div>

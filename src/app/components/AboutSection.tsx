@@ -69,6 +69,8 @@ export function AboutSection() {
                 alt="The Interior of the Palm House on the Pfaueninsel Near Potsdam by Carl Blechen"
                 className="w-full aspect-[477/512] object-cover rounded-[25px]"
                 src={imgPalmHouse}
+                loading="lazy"
+                decoding="async"
               />
               {/* Decorative border - inset over the image */}
               <motion.div

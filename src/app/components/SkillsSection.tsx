@@ -236,6 +236,8 @@ export function SkillsSection() {
           src={statueImg}
           alt=""
           className="w-full h-auto object-contain drop-shadow-2xl"
+          loading="lazy"
+          decoding="async"
         />
       </motion.div>
 
@@ -256,6 +258,8 @@ export function SkillsSection() {
             src={bustImg}
             alt=""
             className="w-full h-auto object-contain"
+            loading="lazy"
+            decoding="async"
           />
         </motion.div>
         <MarqueeRow
@@ -291,6 +295,8 @@ export function SkillsSection() {
           src={statueImg}
           alt=""
           className="w-[220px] h-auto object-contain"
+          loading="lazy"
+          decoding="async"
         />
       </motion.div>
     </section>
