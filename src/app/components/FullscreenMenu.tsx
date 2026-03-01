@@ -12,10 +12,10 @@ interface MenuItem {
 
 const menuItems: MenuItem[] = [
   { label: "ABOUT", align: "left", offsetX: "3%", sectionId: "about" },
-  { label: "SKILLS", align: "left", offsetX: "15%", sectionId: "skills" },
-  { label: "PROJECTS", align: "left", offsetX: "27%", sectionId: "projects" },
-  { label: "PORTFOLIO", align: "left", offsetX: "39%", sectionId: "portfolio" },
-  { label: "CONTACT", align: "left", offsetX: "51%", sectionId: "contact" },
+  { label: "SKILLS", align: "left", offsetX: "17%", sectionId: "skills" },
+  { label: "PROJECTS", align: "left", offsetX: "31%", sectionId: "projects" },
+  { label: "PORTFOLIO", align: "left", offsetX: "48%", sectionId: "portfolio" },
+  { label: "CONTACT", align: "left", offsetX: "66%", sectionId: "contact" },
 ];
 
 // Sections that have their own route instead of being on the home page
@@ -239,7 +239,7 @@ export function FullscreenMenu({ isOnLightBg = false, activeSection }: { isOnLig
                     onMouseLeave={() => setHoveredIndex(null)}
                     onClick={(e) => handleMenuItemClick(e, item.sectionId)}
                   ><span
-                      className="font-['Limelight',sans-serif] text-[40px] sm:text-[60px] md:text-[80px] lg:text-[100px] xl:text-[120px] leading-none transition-all duration-300 relative z-10"
+                      className="font-['Limelight',sans-serif] text-[46px] sm:text-[68px] md:text-[92px] lg:text-[118px] xl:text-[138px] leading-none transition-all duration-300 relative z-10"
                       style={{
                         color: "#fff8d9",
                         opacity:
