@@ -196,7 +196,7 @@ export function PortfolioPage() {
       {/* Counter - positioned to vertically center with MENU button */}
       <motion.div
         className="fixed top-6 z-20 flex items-center"
-        style={{ right: 'calc(1.5rem + 120px)' }}
+        style={{ right: "calc(1.5rem + clamp(150px, 18vw, 190px))" }}
         initial={{ opacity: 0, y: -30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
