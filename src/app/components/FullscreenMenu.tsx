@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "motion/react";
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router";
 import waterLilyImg from "../../assets/water-lily.png";
 
@@ -28,11 +28,75 @@ export function FullscreenMenu({ isOnLightBg = false, activeSection }: { isOnLig
   const [isOpen, setIsOpen] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const pendingScrollRef = useRef<string | null>(null);
+  const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
   const navigate = useNavigate();
   const location = useLocation();
+  const [stripeRects, setStripeRects] = useState<Array<{ left: number; top: number } | null>>([]);
+  const [viewportSize, setViewportSize] = useState({ width: 0, height: 0 });
 
   // Track closing state for reverse cascade
   const [isClosing, setIsClosing] = useState(false);
+
+  const measureStripeRects = useCallback(() => {
+    if (!isOpen) return;
+
+    setViewportSize({ width: window.innerWidth, height: window.innerHeight });
+    setStripeRects(
+      menuItems.map((_, index) => {
+        const el = itemRefs.current[index];
+        if (!el) return null;
+
+        const rect = el.getBoundingClientRect();
+
+        return {
+          left: rect.left - 48,
+          top: rect.top,
+        };
+      })
+    );
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const rafId = requestAnimationFrame(() => {
+      measureStripeRects();
+      requestAnimationFrame(measureStripeRects);
+    });
+
+    const timeoutId = window.setTimeout(measureStripeRects, 500);
+    window.addEventListener("resize", measureStripeRects);
+
+    return () => {
+      cancelAnimationFrame(rafId);
+      window.clearTimeout(timeoutId);
+      window.removeEventListener("resize", measureStripeRects);
+    };
+  }, [isOpen, measureStripeRects]);
+
+  const getStripeBackgroundStyle = useCallback(
+    (index: number) => {
+      const rect = stripeRects[index];
+
+      if (!rect || viewportSize.width === 0 || viewportSize.height === 0) {
+        return {
+          backgroundImage: `url(${waterLilyImg})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        };
+      }
+
+      return {
+        backgroundImage: `url(${waterLilyImg})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        width: `${viewportSize.width}px`,
+        height: `${viewportSize.height}px`,
+        transform: `translate(${-rect.left}px, ${-rect.top}px)`,
+      };
+    },
+    [stripeRects, viewportSize.height, viewportSize.width]
+  );
 
   const handleOpen = useCallback(() => {
     setIsClosing(false);
@@ -163,6 +227,9 @@ export function FullscreenMenu({ isOnLightBg = false, activeSection }: { isOnLig
                 return (
                 <motion.div
                   key={item.label}
+                  ref={(node) => {
+                    itemRefs.current[index] = node;
+                  }}
                   className="relative"
                   initial={{ opacity: 0, y: 60, x: -30 }}
                   animate={
@@ -202,11 +269,7 @@ export function FullscreenMenu({ isOnLightBg = false, activeSection }: { isOnLig
                       >
                         <div
                           className="absolute inset-0 opacity-70"
-                          style={{
-                            backgroundImage: `url(${waterLilyImg})`,
-                            backgroundSize: "100vw 100vh",
-                            backgroundPosition: "center",
-                          }}
+                          style={getStripeBackgroundStyle(index)}
                         />
                       </motion.div>
                     )}
@@ -220,11 +283,7 @@ export function FullscreenMenu({ isOnLightBg = false, activeSection }: { isOnLig
                     >
                       <div
                         className="absolute inset-0 opacity-70"
-                        style={{
-                          backgroundImage: `url(${waterLilyImg})`,
-                          backgroundSize: "100vw 100vh",
-                          backgroundPosition: "center",
-                        }}
+                        style={getStripeBackgroundStyle(index)}
                       />
                     </div>
                   )}
