@@ -29,7 +29,7 @@ function AnimatedContactTitle() {
         className="w-32 h-px bg-[#c5b57a] mb-6 origin-center"
       />
 
-      <h2 className="font-['Limelight',sans-serif] text-[#494d17] text-center leading-none flex overflow-hidden" style={{ fontSize: "clamp(54px, 8.5vw, 120px)" }}>
+      <h2 className="font-['Limelight',sans-serif] text-[#494d17] text-center leading-none flex overflow-hidden" style={{ fontSize: "clamp(48px, 7vw, 102px)" }}>
         {letters.map((letter, i) => (
           <motion.span
             key={i}
