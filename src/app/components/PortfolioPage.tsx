@@ -8,6 +8,7 @@ import imgArtwork4 from "../../assets/artwork-4.png";
 import imgArtwork5 from "../../assets/artwork-5.png";
 import imgArtwork6 from "../../assets/artwork-6.png";
 import imgBg from "../../assets/image-background.png";
+import imgAmidasGarden from "../../assets/amida's-garden.jpg";
 
 interface Artwork {
   id: number;
@@ -56,6 +57,208 @@ const artworks: Artwork[] = [
 ];
 
 const swipeConfidenceThreshold = 50;
+const loaderLettersStart = ["P", "O", "R", "T"];
+const loaderLettersEnd = ["F", "O", "L", "I", "O"];
+const loaderPrimaryImage = imgAmidasGarden;
+const loaderExpandedHeight = "calc(100vw * 0.667)";
+
+async function preloadImage(src: string) {
+  await new Promise<void>((resolve, reject) => {
+    const image = new Image();
+    image.decoding = "async";
+    image.onload = () => resolve();
+    image.onerror = () => reject(new Error(`Failed to load image: ${src}`));
+    image.src = src;
+
+    if (image.complete) {
+      resolve();
+    }
+  });
+}
+
+function PortfolioLoadingScreen({ progress }: { progress: number }) {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const progressLabel = Math.round(progress * 100);
+
+  useEffect(() => {
+    const expandTimeout = window.setTimeout(() => {
+      setIsExpanded(true);
+    }, 1125);
+
+    return () => window.clearTimeout(expandTimeout);
+  }, []);
+
+  return (
+    <motion.div
+      className="fixed inset-0 z-[140] overflow-hidden bg-[#11170d]"
+      initial={{ opacity: 1 }}
+      animate={{ opacity: 1 }}
+      exit={{ y: "-100%", transition: { duration: 1.0, ease: [0.76, 0, 0.24, 1] } }}
+    >
+      <div
+        className="absolute inset-0 opacity-45"
+        style={{
+          backgroundImage: `url(${imgBg})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          filter: "blur(14px)",
+          transform: "scale(1.08)",
+        }}
+      />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(240,237,228,0.12),rgba(17,23,13,0.9)_70%)]" />
+
+      <div className="pointer-events-none relative z-10 flex h-full flex-col justify-between px-4 py-5 sm:px-8 sm:py-7">
+        <motion.div
+          className="flex items-start justify-between gap-4 text-[#f4ecd7]"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: isExpanded ? 1 : 0 }}
+          transition={{ duration: 0.55, delay: isExpanded ? 0.08 : 0 }}
+        >
+          <div className="overflow-hidden">
+            <motion.div
+              initial={{ y: "110%" }}
+              animate={{ y: isExpanded ? "0%" : "110%" }}
+              transition={{ duration: 0.9, ease: [0.19, 1, 0.22, 1] }}
+            >
+              <p
+                className="font-['Cormorant_SC',serif] uppercase tracking-[0.38em] text-[#c5b57a]/80"
+                style={{ fontSize: "clamp(11px, 1vw, 14px)" }}
+              >
+                Selected Works
+              </p>
+              <p
+                className="mt-1 font-['Playfair_Display',serif] tracking-[0.2em] text-[#fff8d9]"
+                style={{ fontSize: "clamp(13px, 1.1vw, 17px)", fontWeight: 700 }}
+              >
+                PORTFOLIO
+              </p>
+            </motion.div>
+          </div>
+
+          <div className="flex flex-col items-end gap-1 overflow-hidden text-right sm:gap-2">
+            {["Curating the gallery", "Rachel Rafik", `${progressLabel}% loaded`].map((label, index) => (
+              <motion.p
+                key={label}
+                className="font-['Cormorant_SC',serif] uppercase tracking-[0.24em] text-[#f4ecd7]/80"
+                style={{ fontSize: "clamp(10px, 0.95vw, 13px)" }}
+                initial={{ y: "110%" }}
+                animate={{ y: isExpanded ? "0%" : "110%" }}
+                transition={{ duration: 0.9, delay: isExpanded ? 0.08 + index * 0.06 : 0, ease: [0.19, 1, 0.22, 1] }}
+              >
+                {label}
+              </motion.p>
+            ))}
+          </div>
+        </motion.div>
+
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="relative flex items-center justify-center" style={{ fontSize: "clamp(4.8rem, 14vw, 12.5rem)" }}>
+            <motion.div
+              className="flex items-end overflow-hidden"
+              animate={{ opacity: isExpanded ? 0 : 1 }}
+              transition={{ duration: 0.5, delay: isExpanded ? 0.55 : 0, ease: [0.22, 1, 0.36, 1] }}
+            >
+              {loaderLettersStart.map((letter, index) => (
+                <motion.span
+                  key={letter + index}
+                  className="block font-['Cormorant_Garamond',serif] leading-[0.78] text-[#f4ecd7]"
+                  initial={{ y: "110%" }}
+                  animate={{ y: "0%" }}
+                  transition={{ duration: 1.05, delay: index * 0.04, ease: [0.19, 1, 0.22, 1] }}
+                >
+                  {letter}
+                </motion.span>
+              ))}
+            </motion.div>
+
+            <motion.div
+              className="relative mx-[0.02em] flex items-center justify-center overflow-hidden"
+              initial={{ width: 0, height: "0.84em" }}
+              animate={{ width: isExpanded ? "100vw" : "0.9em", height: isExpanded ? loaderExpandedHeight : "0.84em" }}
+              transition={{
+                duration: isExpanded ? 1.3 : 1.05,
+                delay: isExpanded ? 0 : 0.12,
+                ease: [0.19, 1, 0.22, 1],
+              }}
+            >
+              <div className="absolute inset-0 bg-[#eae2cf]/8 backdrop-blur-[0.5px]" />
+              <div className="absolute inset-0 border-y border-[#f0e5c9]/16" />
+
+              <div className="absolute inset-0 overflow-hidden">
+                <div className="relative h-full w-full">
+                  {/* Blurred backdrop — fills letterbox gaps with painting's own tones */}
+                  <img
+                    src={loaderPrimaryImage}
+                    alt=""
+                    aria-hidden="true"
+                    draggable={false}
+                    className="absolute inset-0 h-full w-full object-cover select-none blur-xl scale-110 opacity-55"
+                  />
+                  {/* Primary image — object-contain so the full painting is visible */}
+                  <img
+                    src={loaderPrimaryImage}
+                    alt=""
+                    draggable={false}
+                    className={`absolute inset-0 h-full w-full select-none ${isExpanded ? "object-contain" : "object-cover"}`}
+                  />
+                </div>
+              </div>
+            </motion.div>
+
+            <motion.div
+              className="flex items-end overflow-hidden"
+              animate={{ opacity: isExpanded ? 0 : 1 }}
+              transition={{ duration: 0.5, delay: isExpanded ? 0.55 : 0, ease: [0.22, 1, 0.36, 1] }}
+            >
+              {loaderLettersEnd.map((letter, index) => (
+                <motion.span
+                  key={letter + index}
+                  className="block font-['Cormorant_Garamond',serif] leading-[0.78] text-[#f4ecd7]"
+                  initial={{ y: "110%" }}
+                  animate={{ y: "0%" }}
+                  transition={{ duration: 1.05, delay: 0.16 + index * 0.04, ease: [0.19, 1, 0.22, 1] }}
+                >
+                  {letter}
+                </motion.span>
+              ))}
+            </motion.div>
+          </div>
+        </div>
+
+        <motion.div
+          className="relative flex items-end justify-between gap-4"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: isExpanded ? 1 : 0 }}
+          transition={{ duration: 0.55, delay: isExpanded ? 0.12 : 0 }}
+        >
+          <div className="overflow-hidden">
+            <motion.p
+              className="font-['Cormorant_SC',serif] uppercase tracking-[0.32em] text-[#c5b57a]/75"
+              style={{ fontSize: "clamp(10px, 0.95vw, 13px)" }}
+              initial={{ y: "110%" }}
+              animate={{ y: isExpanded ? "0%" : "110%" }}
+              transition={{ duration: 0.9, delay: isExpanded ? 0.14 : 0, ease: [0.19, 1, 0.22, 1] }}
+            >
+              {progressLabel}% ready
+            </motion.p>
+          </div>
+
+          <div className="overflow-hidden">
+            <motion.div
+              className="flex items-end justify-end font-['Cormorant_Garamond',serif] uppercase leading-[0.82] text-[#f4ecd7]"
+              style={{ fontSize: "clamp(2.8rem, 8.2vw, 7.4rem)" }}
+              initial={{ y: "110%" }}
+              animate={{ y: isExpanded ? "0%" : "110%" }}
+              transition={{ duration: 1.05, delay: isExpanded ? 0.16 : 0, ease: [0.19, 1, 0.22, 1] }}
+            >
+              <span>PORTFOLIO</span>
+            </motion.div>
+          </div>
+        </motion.div>
+      </div>
+    </motion.div>
+  );
+}
 
 export function PortfolioPage() {
   const [[currentIndex, direction], setPage] = useState([0, 0]);
@@ -63,6 +266,8 @@ export function PortfolioPage() {
   const touchEndX = useRef(0);
   const containerRef = useRef<HTMLDivElement>(null);
   const [isCompactMobile, setIsCompactMobile] = useState(false);
+  const [assetsReady, setAssetsReady] = useState(false);
+  const [loadProgress, setLoadProgress] = useState(0);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(max-width: 640px)");
@@ -72,6 +277,46 @@ export function PortfolioPage() {
     mediaQuery.addEventListener("change", syncViewport);
 
     return () => mediaQuery.removeEventListener("change", syncViewport);
+  }, []);
+
+  useEffect(() => {
+    let isCancelled = false;
+    const assetSources = [imgBg, ...artworks.map((artwork) => artwork.src)];
+    const totalAssets = assetSources.length;
+    let completedAssets = 0;
+    const minLoaderDuration = 2600;
+    const startTime = Date.now();
+
+    setAssetsReady(false);
+    setLoadProgress(0);
+
+    Promise.allSettled(
+      assetSources.map(async (src) => {
+        try {
+          await preloadImage(src);
+        } finally {
+          completedAssets += 1;
+          if (!isCancelled) {
+            setLoadProgress(completedAssets / totalAssets);
+          }
+        }
+      }),
+    ).then(() => {
+      if (!isCancelled) {
+        const elapsed = Date.now() - startTime;
+        const remaining = Math.max(0, minLoaderDuration - elapsed);
+
+        window.setTimeout(() => {
+          if (!isCancelled) {
+            setAssetsReady(true);
+          }
+        }, remaining);
+      }
+    });
+
+    return () => {
+      isCancelled = true;
+    };
   }, []);
 
   const paginate = useCallback(
@@ -153,17 +398,25 @@ export function PortfolioPage() {
   const artwork = artworks[currentIndex];
 
   return (
-    <div
-      ref={containerRef}
-      className="relative w-full h-[100svh] overflow-hidden select-none"
-      onTouchStart={handleTouchStart}
-      onTouchMove={handleTouchMove}
-      onTouchEnd={handleTouchEnd}
-      onMouseDown={handleMouseDown}
-      onMouseMove={handleMouseMove}
-      onMouseUp={handleMouseUp}
-      onMouseLeave={handleMouseUp}
-    >
+    <>
+      <AnimatePresence>
+        {!assetsReady && <PortfolioLoadingScreen progress={loadProgress} />}
+      </AnimatePresence>
+
+      <motion.div
+        ref={containerRef}
+        className="relative w-full h-[100svh] overflow-hidden select-none"
+        onTouchStart={assetsReady ? handleTouchStart : undefined}
+        onTouchMove={assetsReady ? handleTouchMove : undefined}
+        onTouchEnd={assetsReady ? handleTouchEnd : undefined}
+        onMouseDown={assetsReady ? handleMouseDown : undefined}
+        onMouseMove={assetsReady ? handleMouseMove : undefined}
+        onMouseUp={assetsReady ? handleMouseUp : undefined}
+        onMouseLeave={assetsReady ? handleMouseUp : undefined}
+        initial={false}
+        animate={{ opacity: assetsReady ? 1 : 0 }}
+        transition={{ duration: 0.85, delay: assetsReady ? 0.25 : 0, ease: [0.22, 1, 0.36, 1] }}
+      >
       {/* Background image with dark overlay */}
       <motion.img
         src={imgBg}
@@ -171,7 +424,7 @@ export function PortfolioPage() {
         className="absolute inset-0 w-full h-full object-cover pointer-events-none"
         draggable={false}
         decoding="async"
-      initial={{ scale: 1.2, opacity: 0 }}
+        initial={{ scale: 1.2, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 1.8, ease: [0.25, 0.1, 0.25, 1] }}
       />
@@ -268,6 +521,7 @@ export function PortfolioPage() {
                 className="max-w-[78vw] sm:max-w-[84vw] md:max-w-[48vw] max-h-[43svh] sm:max-h-[54vh] md:max-h-[65vh] w-auto h-auto object-contain pointer-events-none"
                 draggable={false}
                 decoding="async"
+                loading="eager"
               />
               {/* Title area - slides with the image */}
               <div className="mt-5 sm:mt-8 text-center px-4">
@@ -356,6 +610,7 @@ export function PortfolioPage() {
       >
         ← Back to Home
       </motion.a>
-    </div>
+      </motion.div>
+    </>
   );
 }

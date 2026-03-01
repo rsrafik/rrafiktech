@@ -23,6 +23,7 @@ import type { IconType } from "react-icons";
 import { useRef } from "react";
 import statueImg from "../../assets/statue-image.png";
 import bustImg from "../../assets/bust-image.png";
+import { useIsMobile } from "./ui/use-mobile";
 
 interface Skill {
   name: string;
@@ -69,7 +70,13 @@ function MarqueeRow({
 }) {
   const rowRef = useRef<HTMLDivElement>(null);
   const isRowInView = useInView(rowRef, { margin: "-50px" });
-  const repeated = [...skills, ...skills, ...skills, ...skills];
+  const isMobile = useIsMobile();
+  const repeated = isMobile
+    ? [...skills, ...skills, ...skills]
+    : [...skills, ...skills, ...skills, ...skills];
+  const marqueeDuration = isMobile ? duration * 1.45 : duration;
+  const marqueeRange = isMobile ? ["0%", "-33.333%"] : ["0%", "-25%"];
+  const reverseMarqueeRange = isMobile ? ["-33.333%", "0%"] : ["-25%", "0%"];
 
   return (
     <div ref={rowRef} className="flex flex-col gap-3 mb-10">
@@ -86,15 +93,19 @@ function MarqueeRow({
         <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-[#faf8f0] to-transparent z-10 pointer-events-none" />
 
         <motion.div
-          className="flex items-center w-max"
+          className="flex items-center w-max will-change-transform"
           animate={{
-            x: direction === "left" ? ["0%", "-25%"] : ["-25%", "0%"],
+            x: isRowInView
+              ? direction === "left"
+                ? marqueeRange
+                : reverseMarqueeRange
+              : "0%",
           }}
           transition={{
             x: {
               repeat: Infinity,
               repeatType: "loop",
-              duration,
+              duration: marqueeDuration,
               ease: "linear",
             },
           }}
@@ -173,6 +184,7 @@ function AnimatedTitle() {
 }
 
 export function SkillsSection() {
+  const isMobile = useIsMobile();
   const sectionRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -202,24 +214,34 @@ export function SkillsSection() {
   const orb2Y = useTransform(scrollYProgress, [0, 1], [0, -120]);
   const orb3Y = useTransform(scrollYProgress, [0, 1], [0, -60]);
 
+  const desktopOrbStyle = isMobile ? undefined : { y: orb1Y };
+  const desktopOrbStyle2 = isMobile ? undefined : { y: orb2Y };
+  const centerOrbStyle = isMobile ? undefined : { y: orb3Y };
+  const mobileStatueStyle = isMobile
+    ? { opacity: 0.14, scale: 1 }
+    : {
+        y: mobileStatueY,
+        opacity: mobileStatueOpacity,
+        scale: mobileStatueScale,
+      };
+
   return (
     <section ref={sectionRef} className="relative bg-gradient-to-b from-white via-[#faf8f0] to-[#f3efe2] py-16 md:py-24 overflow-hidden min-h-screen">
       {/* Decorative warm accent circles with parallax */}
       <motion.div
-        style={{ y: orb1Y }}
+        style={desktopOrbStyle}
         className="absolute top-20 -left-32 w-64 h-64 rounded-full bg-[#d5b669]/10 blur-3xl pointer-events-none"
       />
       <motion.div
-        style={{ y: orb2Y }}
+        style={desktopOrbStyle2}
         className="absolute bottom-32 -right-24 w-80 h-80 rounded-full bg-[#768a55]/10 blur-3xl pointer-events-none"
       />
       <motion.div
-        style={{ y: orb3Y }}
+        style={centerOrbStyle}
         className="hidden md:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-[#c5b57a]/5 blur-3xl pointer-events-none"
       />
-      <motion.div
-        style={{ y: orb3Y }}
-        className="md:hidden absolute bottom-28 left-1/2 -translate-x-1/2 w-[340px] h-[420px] rounded-full bg-[#c5b57a]/7 blur-3xl pointer-events-none"
+      <div
+        className="md:hidden absolute top-[52%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] h-[420px] rounded-full bg-[#c5b57a]/7 blur-3xl pointer-events-none"
       />
 
       {/* Statue - left side decorative element (desktop only) */}
@@ -282,14 +304,10 @@ export function SkillsSection() {
         />
       </div>
 
-      {/* Mobile statue - centered at bottom */}
+      {/* Mobile statue - visually centered behind the skill rows */}
       <motion.div
-        style={{
-          y: mobileStatueY,
-          opacity: mobileStatueOpacity,
-          scale: mobileStatueScale,
-        }}
-        className="md:hidden relative z-10 flex justify-center -mt-36 pointer-events-none select-none"
+        style={mobileStatueStyle}
+        className="md:hidden absolute top-[58%] left-1/2 z-0 flex -translate-x-1/2 -translate-y-1/2 justify-center pointer-events-none select-none"
       >
         <img
           src={statueImg}

@@ -45,59 +45,51 @@ function RotatingRing({ ring, index, center }: { ring: typeof rings[number]; ind
   const bandOffset = bandSize / 2;
   return (
     <g>
-      <g>
-        <animateTransform
-          attributeName="transform"
-          type="rotate"
-          from={`0 ${center} ${center}`}
-          to={`${ring.dir > 0 ? 360 : -360} ${center} ${center}`}
-          dur={`${ring.dur}s`}
-          repeatCount="indefinite"
-        />
-        <circle
-          cx={center}
-          cy={center}
-          r={ring.r - bandOffset}
-          fill="none"
-          stroke="#c5c0b3"
-          strokeWidth={0.8}
-          vectorEffect="non-scaling-stroke"
-        />
-        <circle
-          cx={center}
-          cy={center}
-          r={ring.r + bandOffset}
-          fill="none"
-          stroke="#c5c0b3"
-          strokeWidth={0.8}
-          vectorEffect="non-scaling-stroke"
-        />
-        <defs>
-          <path
-            id={pathId}
-            d={`M ${center},${center} m -${ring.r},0 a ${ring.r},${ring.r} 0 1,1 ${ring.r * 2},0 a ${ring.r},${ring.r} 0 1,1 -${ring.r * 2},0`}
-          />
-        </defs>
-        <text
-          fill="#494d16"
-          style={{
-            fontFamily: "'Playfair Display', serif",
-            fontSize: ring.size,
-            fontWeight: 700,
-            letterSpacing: "0.01em",
-          }}
-          dominantBaseline="middle"
+      <animateTransform
+        attributeName="transform"
+        type="rotate"
+        from={`0 ${center} ${center}`}
+        to={`${ring.dir > 0 ? 360 : -360} ${center} ${center}`}
+        dur={`${ring.dur}s`}
+        repeatCount="indefinite"
+      />
+      <circle
+        cx={center}
+        cy={center}
+        r={ring.r - bandOffset}
+        fill="none"
+        stroke="#c5c0b3"
+        strokeWidth={0.8}
+        vectorEffect="non-scaling-stroke"
+      />
+      <circle
+        cx={center}
+        cy={center}
+        r={ring.r + bandOffset}
+        fill="none"
+        stroke="#c5c0b3"
+        strokeWidth={0.8}
+        vectorEffect="non-scaling-stroke"
+      />
+      <text
+        fill="#494d16"
+        style={{
+          fontFamily: "'Playfair Display', serif",
+          fontSize: ring.size,
+          fontWeight: 700,
+          letterSpacing: "0.01em",
+        }}
+        dominantBaseline="middle"
+      >
+        <textPath
+          href={`#${pathId}`}
+          startOffset="0%"
+          textLength={circumference * 0.94}
+          lengthAdjust="spacing"
         >
-          <textPath
-            href={`#${pathId}`}
-            startOffset="0%"
-            textLength={circumference * 0.94}
-            lengthAdjust="spacing"
-          >
-            {ringText}
-          </textPath>
-        </text>
-      </g>
+          {ringText}
+        </textPath>
+      </text>
     </g>
   );
 }
@@ -116,6 +108,15 @@ export function NotFoundPage() {
           overflow="visible"
           preserveAspectRatio="xMidYMid meet"
         >
+          <defs>
+            {rings.map((ring, i) => (
+              <path
+                key={i}
+                id={`ring-path-${i}`}
+                d={`M ${center},${center} m -${ring.r},0 a ${ring.r},${ring.r} 0 1,1 ${ring.r * 2},0 a ${ring.r},${ring.r} 0 1,1 -${ring.r * 2},0`}
+              />
+            ))}
+          </defs>
           {rings.map((ring, i) => (
             <RotatingRing key={i} ring={ring} index={i} center={center} />
           ))}
