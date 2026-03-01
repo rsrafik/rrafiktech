@@ -131,7 +131,7 @@ export function AboutSection() {
                 here
               </span>
               . I love art so much that I put some of my favorites throughout
-              this site. Click on them for a surprise!
+              this site!
             </p>
           </motion.div>
         </div>
