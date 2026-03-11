@@ -108,8 +108,8 @@ export function AboutSection() {
           >
             <p>
               I'm a{" "}
-              <span className="text-[#494d17]">Moroccan-Venezuelan</span>{" "}
-              (50/50 mix) living in the US. I speak{" "}
+              <span className="text-[#494d17]">mixed-culture</span>{" "}
+              (50/50 mix) person born and raised in the US. I speak{" "}
               <span className="text-[#494d17]">3 languages</span>, and my goal
               is to learn one per continent.
             </p>
@@ -119,7 +119,8 @@ export function AboutSection() {
               studying at{" "}
               <span className="text-[#494d17]">Purdue University</span>, and
               have been coding for 6 years now. I am concentrating in Software
-              Engineering, Systems Software, and Machine Intelligence. I have
+              Engineering and Machine Intelligence, and have a strong interest
+              web/database development and machine learning. I have
               two minors: Management and Arabic.
             </p>
             <p>
