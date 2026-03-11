@@ -60,7 +60,7 @@ const swipeConfidenceThreshold = 50;
 const loaderLettersStart = ["P", "O", "R", "T"];
 const loaderLettersEnd = ["F", "O", "L", "I", "O"];
 const loaderPrimaryImage = imgAmidasGarden;
-const loaderExpandedHeight = "calc(100vw * 0.667)";
+const loaderExpandedHeight = "calc(100dvw * 0.667)";
 
 async function preloadImage(src: string) {
   await new Promise<void>((resolve, reject) => {
@@ -172,9 +172,9 @@ function PortfolioLoadingScreen({ progress }: { progress: number }) {
             </motion.div>
 
             <motion.div
-              className="relative mx-[0.02em] flex items-center justify-center overflow-hidden"
+              className={`flex items-center justify-center overflow-hidden ${isExpanded ? "fixed left-1/2 top-1/2 z-[145] -translate-x-1/2 -translate-y-1/2 mx-0" : "relative mx-[0.02em]"}`}
               initial={{ width: 0, height: "0.84em" }}
-              animate={{ width: isExpanded ? "100vw" : "0.9em", height: isExpanded ? loaderExpandedHeight : "0.84em" }}
+              animate={{ width: isExpanded ? "100dvw" : "0.9em", height: isExpanded ? loaderExpandedHeight : "0.84em" }}
               transition={{
                 duration: isExpanded ? 1.3 : 1.05,
                 delay: isExpanded ? 0 : 0.12,
