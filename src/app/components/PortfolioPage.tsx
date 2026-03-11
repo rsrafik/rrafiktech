@@ -192,15 +192,16 @@ function PortfolioLoadingScreen({ progress }: { progress: number }) {
                     alt=""
                     aria-hidden="true"
                     draggable={false}
-                    className="absolute inset-0 h-full w-full object-cover select-none blur-xl scale-110 opacity-55"
+                    className="absolute inset-0 h-full w-full object-cover select-none blur-xl scale-110 opacity-60 brightness-110"
                   />
                   {/* Primary image — object-contain so the full painting is visible */}
                   <img
                     src={loaderPrimaryImage}
                     alt=""
                     draggable={false}
-                    className={`absolute inset-0 h-full w-full select-none ${isExpanded ? "object-contain" : "object-cover"}`}
+                    className={`absolute inset-0 h-full w-full select-none brightness-105 ${isExpanded ? "object-contain" : "object-cover"}`}
                   />
+                  <div className="absolute inset-0 bg-black/20" />
                 </div>
               </div>
             </motion.div>
